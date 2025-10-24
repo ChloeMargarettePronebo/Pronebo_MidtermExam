@@ -1,0 +1,22 @@
+- name: install apache and php 
+  dnf:
+      name: 
+        - httpd
+        - php
+      state: latest
+  when: ansible_distribution == "CentOS"
+
+- name: Enabling httpd and start the service
+  service:
+      name: httpd
+      state: started
+      enabled: yes
+  when: ansible_distribution == "CentOS"
+
+- name: install apache and php 
+  apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
+  when: ansible_distribution == "Ubuntu"

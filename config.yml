@@ -1,0 +1,54 @@
+---
+- hosts: web_servers
+  become: true
+  tasks:
+
+  - name: Install apt package requirments
+    ansible.bulitin.apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    with_items:
+     - gpg-agent
+     - curl
+     - procps
+     - net-tools
+     - gnupg
+
+  - name: Install Elasticsearch
+    block:
+      name: elasticsearch-install
+      state: present
+
+  - name: Install Elasticsearch package
+    ansible.bulitin.apt:
+        name: elasticsearch-install
+        state: present
+
+  - name: Update Elasticsearch Configuration File
+    lineinfile:
+      path: ./hello
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+
+  - name: Update Elasticsearch Configuration File
+    lineinfile:
+      path: ./hello
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+
+  - name: Enable and start Elasticsearch service
+    service:
+      name: elesticsearch
+      state: started
+      enabled: yes
+
+  - name: Enable and start Elasticsearch service
+    service:
+      name: elesticsearch
+      state: restarted
+     
+  - name: Install Elasticsearch
+    block:
+      name: kibana-install
+      state: present

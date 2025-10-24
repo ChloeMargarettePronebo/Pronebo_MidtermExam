@@ -1,0 +1,11 @@
+---
+- hosts: web_servers
+  become: true
+  roles:
+   - apache
+
+- hosts: db_servers
+  become: true
+  roles:
+   - mariadb
+
